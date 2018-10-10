@@ -1,6 +1,6 @@
 {
     "name": "cactusmq-react-native",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "React Native client for CactusMQ.",
     "repository": {
         "type": "git",
