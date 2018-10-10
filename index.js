@@ -1,36 +1,40 @@
-import RNEventSource from "react-native-event-source";
+var request = require("request");
+var EventSource = require("eventsource");
 
-const cactusSubscribeURL = "http://api.cactusmq.com/v1/subscribe/";
-const cactusPublishURL = "http://api.cactusmq.com/v1/publish/";
+var ApiURL = "http://api.cactusmq.com/v1/";
 
-export default class CactusMQ {
-  constructor(options) {
-    this.publishKey = options.publishKey;
-    this.subscribeKey = options.subscribeKey;
-    this.eventSource = new RNEventSource(
-      cactusSubscribeURL.concat(this.subscribeKey)
-    );
-    this.cactusPublish = cactusPublishURL.concat(this.publishKey);
+function CactusMQ(options) {
+    this.publishURL = ApiURL.concat("publish/", options.publishKey);
+    this.subscribeURL = ApiURL.concat("subscribe/", options.subscribeKey);
     this.onMessage = options.onMessage;
-  }
+    this.onPublish = options.onPublish;
+    this.onError = options.onError;
+};
 
-  publish(topic, message) {
-    fetch(this.cactusPublish, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        topic: topic,
-        message: message
-      })
+CactusMQ.prototype.publish = function(topic, message, data) { 
+    request({
+        url: this.publishURL,
+        method: "POST",
+        json: true,
+        body: {
+            topic: topic,
+            message: message,
+            data: data
+          }
+    }, (error, response, body) => {
+        if (error) {
+            this.onError(error);
+        } else {
+            this.onPublish(body);
+        }
     });
-  }
+};
 
-  subscribe(topic) {
-    this.eventSource.addEventListener(topic, event => {
-      this.onMessage(event.data);
+CactusMQ.prototype.subscribe = function (topic) { 
+    var eventSource = new EventSource(this.subscribeURL);
+    eventSource.addEventListener(topic, e => {
+        this.onMessage(e);
     });
-  }
-}
+};
+
+module.exports = CactusMQ;

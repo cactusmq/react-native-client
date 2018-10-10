@@ -5,9 +5,12 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/cactusmq/react-native-client.git"
-      },
-      "keywords": [],
-      "author": "David J Barnes",
-      "license": "MIT",
-    "homepage": "http://www.cactusmq.com"
+    },
+    "keywords": [],
+    "author": "David J Barnes",
+    "license": "MIT",
+    "homepage": "http://www.cactusmq.com",
+    "dependencies": {
+        "react-native-event-source": "^1.0.1"
+    }
 }
