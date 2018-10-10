@@ -1,6 +1,6 @@
-var request = require("request");
-var EventSource = require("eventsource");
+import RNEventSource from "react-native-event-source";
 
+var request = require("request");
 var ApiURL = "http://api.cactusmq.com/v1/";
 
 function CactusMQ(options) {
@@ -11,7 +11,7 @@ function CactusMQ(options) {
     this.onError = options.onError;
 };
 
-CactusMQ.prototype.publish = function(topic, message, data) { 
+CactusMQ.prototype.publish = function (topic, message, data) { 
     request({
         url: this.publishURL,
         method: "POST",

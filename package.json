@@ -1,6 +1,6 @@
 {
     "name": "cactusmq-react-native",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "React Native client for CactusMQ.",
     "repository": {
         "type": "git",
@@ -11,6 +11,7 @@
     "license": "MIT",
     "homepage": "http://www.cactusmq.com",
     "dependencies": {
-        "react-native-event-source": "^1.0.1"
+        "react-native-event-source": "^1.0.1",
+        "request": "^2.88.0"
     }
 }
