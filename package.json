@@ -1,0 +1,13 @@
+{
+    "name": "cactusmq-react-native",
+    "version": "1.0.0",
+    "description": "React Native client for CactusMQ.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/cactusmq/react-native-client.git"
+      },
+      "keywords": [],
+      "author": "David J Barnes",
+      "license": "MIT",
+    "homepage": "http://www.cactusmq.com"
+}
