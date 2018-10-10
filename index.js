@@ -12,22 +12,24 @@ function CactusMQ(options) {
 };
 
 CactusMQ.prototype.publish = function (topic, message, data) { 
-    request({
-        url: this.publishURL,
-        method: "POST",
-        json: true,
-        body: {
+    fetch(this.publishURL, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json', 'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
             topic: topic,
             message: message,
             data: data
-          }
-    }, (error, response, body) => {
-        if (error) {
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            this.onPublish(response);
+        })
+        .catch((error) => {
             this.onError(error);
-        } else {
-            this.onPublish(body);
-        }
-    });
+        })
+    })
 };
 
 CactusMQ.prototype.subscribe = function (topic) { 
